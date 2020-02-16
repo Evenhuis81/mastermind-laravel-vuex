@@ -38,7 +38,7 @@ const app = new Vue({
 
     computed: {
         show() {
-            return this.$store.state.gameStarted;
+            return this.$store.state.solution.length;
         }
     }
 });

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <button @click="start" v-show="!gameStarted">
+        <button @click="$store.commit('startGame')" v-show="!gameStarted">
             Start New Game
         </button>
-        <button @click="stop" v-show="gameStarted">Stop Game</button>
+        <button @click="$store.commit('stopGame')" v-show="gameStarted">Stop Game</button>
         <br />
         <br />
     </div>
@@ -14,17 +14,18 @@ import { mapState } from "vuex";
 
 export default {
     methods: {
-        start() {
-            this.$store.commit("startOrStopGame");
-            this.$store.commit("createSolution");
-        },
-        stop() {
-            this.$store.commit("startOrStopGame");
-            this.$store.commit("stopGame");
-        }
+        // start() {
+        //     this.$store.commit("createSolution");
+        // },
+        // stop() {
+        //     this.$store.commit("stopGame");
+        // }
     },
     computed: {
-        ...mapState(["gameStarted"])
+        // ...mapState(["gameStarted"])
+        gameStarted() {
+            return this.$store.state.solution.length && !this.$store.getters.nailedIt && !this.$store.getters.lostIt
+        }
     }
 };
 </script>

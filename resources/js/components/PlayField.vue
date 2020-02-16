@@ -2,41 +2,37 @@
     <table>
         <tbody>
             <tr v-for="(currentArray, i1) in playerSelect" :key="i1">
-                <td>
-                    {{ currentArray.length ? "round " + (i1 + 1) + ":" : "" }}
-                </td>
+                <td v-show="i1 + 1 === playerSelect.length"><h3>{{  "round " + (i1 + 1) + ":" }}</h3></td>
+                <td v-show="i1 + 1 !== playerSelect.length">{{  "round " + (i1 + 1) + ":" }}</td>
                 <td v-for="(current, i2) in currentArray" :key="i2 + 1000">
                     {{ gimmeColor(current) }}
                 </td>
-                <td
-                    v-show="
-                        currentArray.length === 4 &&
-                            playerSelect.length === i1 + 1
-                    "
-                >
+                <td v-show="submitClearButtons(currentArray, playerSelect, i1)">
                     <button @click="clearInput">Clear</button>
                 </td>
-                <td
-                    v-show="
-                        currentArray.length === 4 &&
-                            playerSelect.length === i1 + 1
-                    "
-                >
+                <td v-show="submitClearButtons(currentArray, playerSelect, i1)">
                     <button @click="submitInput">Submit</button>
                 </td>
-                <td v-show="makeAChoice">
-                    --- PRESS ONE OF THESE BUTTONS ---
-                </td>
-                <td v-for="(set, i3) in playerSet" :key="i3">
-                    <span
-                        v-for="(item, i4) in set"
-                        :key="i4"
-                        v-html="getHexCode(item)"
-                    >
-                    </span>
+                <td v-show="makeAChoice(currentArray, playerSelect, i1)" v-html="'<< CHOOSE ONE'"></td>
+                <td>
+                    <span v-for="(result, i3) in playerSet[i1]" :key="i3 + 2000" v-html="getHexCode(result)"></span>
                 </td>
             </tr>
         </tbody>
+        <tfoot v-show="$store.getters.nailedIt">
+            <tr>
+                <td colspan="8">
+                    <h1>YOU WON!!</h1>
+                </td>
+            </tr>
+        </tfoot>
+        <tfoot v-show="$store.getters.lostIt">
+            <tr>
+                <td colspan="8">
+                    <h1>YOU LOST!!</h1>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </template>
 
@@ -48,25 +44,40 @@ export default {
         ...mapState([
             "playerSelect",
             "colorPalette",
-            "makeAChoice",
-            "playerSet"
+            "makeAChoiceBoolean",
+            "playerSet",
         ])
     },
     methods: {
+        submitClearButtons(current, select, index) {
+            return current.length === 4 && select.length === index + 1 && !this.$store.getters.nailedIt && !this.$store.getters.lostIt
+        },
+        makeAChoice(select, index) {
+            return this.makeAChoiceBoolean && select.length === index + 1 
+        },
         getHexCode(item) {
             return `&#963${item}`;
         },
         gimmeColor(current) {
             return "{" + this.colorPalette[current] + "}";
         },
+        submitInput() {
+            this.$store.commit("chooseOff");
+            this.$store.commit("roundResult");
+            if (this.$store.getters.lostIt) {
+                //
+                return;
+            };
+            if (this.$store.getters.nailedIt) {
+                console.log('won');
+                //
+            };
+            this.$store.commit("nextRound");
+        },
         clearInput() {
             this.$store.commit("chooseOff");
             this.$store.commit("clearRound");
         },
-        submitInput() {
-            this.$store.commit("chooseOff");
-            this.$store.commit("roundResult");
-        }
     }
 };
 </script>
