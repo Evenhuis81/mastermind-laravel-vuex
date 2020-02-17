@@ -2,38 +2,24 @@
     <div>
         <br />
         <!-- <em>{{ msg[msgNr] ? msg[msgNr] : msg[7] }}</em> -->
-        <em v-html="msg[msgNr] ? msg[msgNr] : msg[7]"></em>
+        <em v-html="messages[msgNr] ? messages[msgNr] : messages[7]"></em>
         <br />
     </div>
 </template>
 <script>
+import { mapState } from "vuex";
+
 export default {
-    data() {
-        return {
-            msg: [
-                "Click on a color:",
-                "Set 4 colors per round, ",
-                "Duplicates are allowed",
-                "After each round you can check the result",
-                this.uniHexCode(2) +
-                    " = right color on right place, " +
-                    this.uniHexCode(3) +
-                    " = right color on wrong place",
-                "You have 10 rounds to find the right combination...",
-                "The faster you get it right, the higher your score!",
-                "Good luck and have fun!"
-            ]
-        };
-    },
     computed: {
         msgNr() {
             return this.$store.getters.count;
-        }
+        },
+        ...mapState(["messages"])
     },
     methods: {
-        uniHexCode(code) {
-            return `&#963${code}`;
-        }
+        // uniHexCode(code) {
+        //     return `&#963${code}`;
+        // }
     }
 };
 </script>

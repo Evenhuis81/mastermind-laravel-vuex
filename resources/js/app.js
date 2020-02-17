@@ -42,7 +42,8 @@ const app = new Vue({
         }
     },
     mounted() {
-        this.$store.dispatch("getHighScores");
+        this.$store.dispatch("setHighScores");
+        this.$store.dispatch("setMessages")
     }
 });
 

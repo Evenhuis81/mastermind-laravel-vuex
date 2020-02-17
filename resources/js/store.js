@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export default {
     state: {
         colorPalette: ["red", "blue", "white", "green", "black", "yellow"],
@@ -5,7 +7,8 @@ export default {
         playerSelect: [[]],
         playerSet: [[]],
         makeAChoice: false,
-        highScores: []
+        highScores: [],
+        messages: []
     },
     mutations: {
         roundResult(state) {
@@ -66,6 +69,23 @@ export default {
         nextRound(state) {
             state.playerSelect.push([]);
             state.playerSet.push([]);
+        },
+        pushMessages(state) {
+            state.messages.push(
+                "Click on a color:",
+                "Set 4 colors per round, ",
+                "Duplicates are allowed",
+                "After each round you can check the result",
+                " = right color on right place, = right color on wrong place",
+                "You have 10 rounds to find the right combination...",
+                "The faster you get it right, the higher your score!",
+                "Good luck and have fun!"
+            )
+        },
+        pushHighScores(state, payload)  {
+            payload.forEach(x => {
+                state.highScores.push(x)
+            })
         }
     },
     getters: {
@@ -104,14 +124,26 @@ export default {
                     0 &&
                 state.playerSelect[state.playerSelect.length - 1].length != 0
             );
-        }
+        },
     },
     actions: {
-        getHighScores({ state }) {
-            return axios.get("/scores").then(
-                response => {},
-                error => {}
-            );
+        setMessages(context) {
+            context.commit('pushMessages')
+                // + this.uniHexCode(3) +
+                // this.uniHexCode(2) +
+        },
+        setHighScores({ commit, state }) {
+            Axios.get('/scores')
+                .then(response => {
+                    commit('pushHighScores', response.data)
+                })
+                .catch(error => {
+                    //
+                    // console.log(error);
+                }).then(alwaysExecuted => {
+                    //
+                    // console.log("j")
+                })
         }
     }
 };

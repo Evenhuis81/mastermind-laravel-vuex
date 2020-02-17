@@ -3,7 +3,7 @@
         <h1>Your Score: {{ $store.getters.endScore }}</h1>
         <form
             v-show="$store.getters.newHighScore"
-            @submit="checkForm"
+            @submit.prevent="checkForm"
             action="/setscore"
             method="post"
         >
@@ -18,9 +18,10 @@
 <script>
 export default {
     methods: {
-        checkForm(e) {
-            return true;
-            e.preventDefault();
+        checkForm() {
+            // return true;
+            // e.preventDefault();
+            console.log('checkForm')
         }
     }
 };

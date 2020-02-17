@@ -29,13 +29,6 @@ export default {
             }
             // this.$store.dispatch("pushPlayerSelect", index);
             this.$store.commit("pushColor", index);
-            // if (this.$store.getters.arrayFull) {
-            //     if (this.$store.getters.endRoundTen) {
-            //         console.log("the end");
-            //     } else {
-            //         // this.playerSelect.push([]);
-            //     }
-            // }
         }
     }
 };
