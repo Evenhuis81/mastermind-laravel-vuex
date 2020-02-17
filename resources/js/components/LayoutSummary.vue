@@ -15,24 +15,25 @@ export default {
                 "Set 4 colors per round, ",
                 "Duplicates are allowed",
                 "After each round you can check the result",
-                this.uniHexCode(2) + " = right color on right place, " + this.uniHexCode(3)  + " = right color on wrong place",
+                this.uniHexCode(2) +
+                    " = right color on right place, " +
+                    this.uniHexCode(3) +
+                    " = right color on wrong place",
                 "You have 10 rounds to find the right combination...",
                 "The faster you get it right, the higher your score!",
                 "Good luck and have fun!"
             ]
-        }
+        };
     },
     computed: {
         msgNr() {
-            return this.$store.getters.count
-        },
-        // uniHexCode(code) {
-        //     return `&#963${code}`;
+            return this.$store.getters.count;
+        }
     },
     methods: {
-        uniHexCode(item) {
-            return `&#963${item}`;
+        uniHexCode(code) {
+            return `&#963${code}`;
         }
     }
-}
+};
 </script>

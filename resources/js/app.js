@@ -29,7 +29,7 @@ Vue.component("roundNumber", require("./components/Round.vue").default);
 Vue.component("play-field", require("./components/PlayField.vue").default);
 Vue.component("final-solution", require("./components/Solution.vue").default);
 Vue.component("end-score", require("./components/Score.vue").default);
-// Vue.component("pointsystem", require("./components/PointSystem.vue").default);
+Vue.component("high-scores", require("./components/HighScores.vue").default);
 // Vue.component("gamerulez", require("./components/GameRulez.vue").default);
 
 const app = new Vue({
@@ -40,6 +40,9 @@ const app = new Vue({
         show() {
             return this.$store.state.solution.length;
         }
+    },
+    mounted() {
+        this.$store.dispatch("getHighScores");
     }
 });
 

@@ -3,7 +3,9 @@
         <button @click="$store.commit('startGame')" v-show="!gameStarted">
             Start New Game
         </button>
-        <button @click="$store.commit('stopGame')" v-show="gameStarted">Stop Game</button>
+        <button @click="$store.commit('stopGame')" v-show="gameStarted">
+            Stop Game
+        </button>
         <br />
         <br />
     </div>
@@ -24,7 +26,11 @@ export default {
     computed: {
         // ...mapState(["gameStarted"])
         gameStarted() {
-            return this.$store.state.solution.length && !this.$store.getters.nailedIt && !this.$store.getters.lostIt
+            return (
+                this.$store.state.solution.length &&
+                !this.$store.getters.nailedIt &&
+                !this.$store.getters.lostIt
+            );
         }
     }
 };

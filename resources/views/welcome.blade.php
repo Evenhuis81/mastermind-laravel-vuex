@@ -27,11 +27,10 @@
             <start-reset></start-reset>
             <layout-summary v-show="show"></layout-summary>
             <color-palette v-show="show"></color-palette>
-            <!-- <round-number v-show="show"></round-number> -->
             <play-field  v-show="show"></play-field>
             <final-solution></final-solution>
             <end-score></end-score>
-            <!-- <point-system></point-system> -->
+            <high-scores></high-scores>
         </div>
       </body>
 </html>
