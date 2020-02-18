@@ -18,7 +18,7 @@
                     <button @click="submitInput">Submit</button>
                 </td>
                 <td
-                    v-show="makeChoice(currentArray, playerSelect, i1)"
+                    v-show="makeChoice(currentArray, i1)"
                     v-html="'<< CHOOSE ONE'"
                 ></td>
                 <td>
@@ -68,8 +68,8 @@ export default {
                 !this.$store.getters.lostIt
             );
         },
-        makeChoice(select, index) {
-            return this.makeAChoice && select.length === index + 1;
+        makeChoice(current, index) {
+            return this.makeAChoice && current.length === index + 1;
         },
         getHexCode(item) {
             return `&#963${item}`;
@@ -85,7 +85,6 @@ export default {
             }
             if (this.$store.getters.nailedIt) {
                 return;
-                //
             }
             this.$store.commit("nextRound");
         },

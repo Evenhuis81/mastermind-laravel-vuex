@@ -8,7 +8,9 @@ export default {
         playerSet: [[]],
         makeAChoice: false,
         highScores: [],
-        messages: []
+        messages: [],
+        ordinals: [],
+        showNewScore: true
     },
     mutations: {
         roundResult(state) {
@@ -50,6 +52,7 @@ export default {
             Vue.set(state.playerSelect, state.playerSelect.length - 1, []);
         },
         startGame(state) {
+            state.showNewScore = true;
             state.solution = [];
             state.playerSelect = [[]];
             state.playerSet = [[]];
@@ -62,6 +65,10 @@ export default {
             state.solution = [];
             state.playerSelect = [[]];
             state.playerSet = [[]];
+        },
+        resetStuff(state) {
+            state.showNewScore = false;
+            state.highScores = [];
         },
         pushColor(state, index) {
             state.playerSelect[state.playerSelect.length - 1].push(index);
@@ -76,25 +83,36 @@ export default {
                 "Set 4 colors per round, ",
                 "Duplicates are allowed",
                 "After each round you can check the result",
-                " = right color on right place, = right color on wrong place",
+                "&#9633 = right color on right place, &#9632 = right color on wrong place",
                 "You have 10 rounds to find the right combination...",
                 "The faster you get it right, the higher your score!",
                 "Good luck and have fun!"
-            )
+            );
         },
-        pushHighScores(state, payload)  {
+        pushHighScores(state, payload) {
             payload.forEach(x => {
-                state.highScores.push(x)
-            })
+                state.highScores.push(x);
+            });
+        },
+        pushOrdinals(state) {
+            state.ordinals.push("1st", "2nd", "3rd");
+            let i = 3;
+            let times_to_run = 7;
+            while (i++ < times_to_run + 4) {
+                state.ordinals.push(i + "th");
+            }
         }
     },
     getters: {
         newHighScore(state) {
             let currentScores = [];
             state.highScores.forEach(x => currentScores.push(x.score));
-            return (
-                110 - state.playerSet.length * 10 > Math.min(...currentScores)
-            );
+            let newScore = 110 - state.playerSet.length * 10;
+            if (newScore > Math.min(...currentScores)) {
+                return newScore;
+            } else {
+                return false;
+            }
         },
         endScore(state) {
             return 110 - state.playerSet.length * 10;
@@ -124,26 +142,26 @@ export default {
                     0 &&
                 state.playerSelect[state.playerSelect.length - 1].length != 0
             );
-        },
+        }
     },
     actions: {
-        setMessages(context) {
-            context.commit('pushMessages')
-                // + this.uniHexCode(3) +
-                // this.uniHexCode(2) +
+        setOrdinals({ commit }) {
+            commit("pushOrdinals");
         },
-        setHighScores({ commit, state }) {
-            Axios.get('/scores')
+        setMessages(context) {
+            context.commit("pushMessages");
+        },
+        setHighScores({ commit }) {
+            Axios.get("/scores")
                 .then(response => {
-                    commit('pushHighScores', response.data)
+                    commit("pushHighScores", response.data);
                 })
                 .catch(error => {
-                    //
-                    // console.log(error);
-                }).then(alwaysExecuted => {
-                    //
-                    // console.log("j")
+                    console.log(error);
                 })
+                .then(() => {
+                    // console.log("always executed");
+                });
         }
     }
 };

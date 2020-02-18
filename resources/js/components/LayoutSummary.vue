@@ -15,11 +15,6 @@ export default {
             return this.$store.getters.count;
         },
         ...mapState(["messages"])
-    },
-    methods: {
-        // uniHexCode(code) {
-        //     return `&#963${code}`;
-        // }
     }
 };
 </script>

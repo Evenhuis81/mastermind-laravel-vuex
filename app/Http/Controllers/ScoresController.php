@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-// use App\Score;
+use App\Score;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ScoresController extends Controller
 {
@@ -15,7 +15,7 @@ class ScoresController extends Controller
      */
     public function index()
     {
-        $scores = DB::table('scores')->orderBy('score', 'desc')->limit(10)->get();
+        $scores = Score::orderBy('score', 'desc')->limit(10)->get();
         return $scores;
     }
 
@@ -26,7 +26,7 @@ class ScoresController extends Controller
      */
     public function create()
     {
-        return 'createworks';
+        // return 'createworks';
     }
 
     /**
@@ -37,8 +37,18 @@ class ScoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min: 3',
+            'score' => 'required|integer'
+        ]);
+        Score::where('score', Score::min('score'))->oldest()->first()->update([
+            'name' => strtoupper($request->name),
+            'score' => $request->score,
+            'created_at' => Carbon::now(),
+        ]);
+        return ["Updated Score"];
     }
+
 
     /**
      * Display the specified resource.
