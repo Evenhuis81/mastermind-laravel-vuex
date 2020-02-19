@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- schrijf event-handlers in je methods blok van je component zodat deze hergebruikt kunnen worden, maakt code ook leesbaarder en beter te debuggen -->
         <button @click="$store.commit('startGame')" v-show="!gameStarted">
             Start New Game
         </button>
@@ -12,9 +13,11 @@
 </template>
 
 <script>
+// mapState import kan verwijderd worden want wordt niet gebruikt
 import { mapState } from "vuex";
 
 export default {
+    // leeg methods blok kan verwijderd worden
     methods: {
         // start() {
         //     this.$store.commit("createSolution");

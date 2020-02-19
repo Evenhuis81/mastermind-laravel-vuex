@@ -30,6 +30,7 @@ import { mapState } from "vuex";
 
 export default {
     computed: {
+        // kolombreedtes met css instellen zodat onderstaande twee computed properties verwijderd kunnen worden
         smallFiller() {
             return `&nbsp&nbsp&nbsp&nbsp`;
         },

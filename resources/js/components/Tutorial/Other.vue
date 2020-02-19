@@ -1,3 +1,5 @@
+// Dit component wordt nergens gebruikt dus verwijderen
+
 <template>
     <div>The count from that other unrelated component is: {{ count }}</div>
 </template>

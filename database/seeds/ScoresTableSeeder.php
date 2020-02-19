@@ -13,42 +13,53 @@ class ScoresTableSeeder extends Seeder
      */
     public function run()
     {
-        $score = 101;
-        Score::create([
-            'name' => 'GOD',
-            'score' => $score,
-            'created_at' => Carbon::create(1981, 4, 30)
-        ]);
-        // $letter = chr(rand(65,90));
-        // echo($letters);
-        $score -= 2;
-        $i = 0;
-        $times_to_run = 4;
-        while ($i++ < $times_to_run)
-        {
+        // $score = 101;
+        // Score::create([
+        //     'name' => 'GOD',
+        //     'score' => $score,
+        //     'created_at' => Carbon::create(1981, 4, 30)
+        // ]);
+        // // $letter = chr(rand(65,90));
+        // // echo($letters);
+        // $score -= 2;
+        // $i = 0;
+        // $times_to_run = 4;
+        // while ($i++ < $times_to_run)
+        // {
+        //     Score::create([
+        //     'name' => chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90)),
+        //     'score' => $score,
+        //     'created_at' => Carbon::create(rand(1990, 2019), rand(1, 12), rand(1, 31))
+        //     ]); 
+        //     $score -= 10;
+        // };
+        // $score -= 8;
+        // Score::create([
+        //     'name' => 'ASS',
+        //     'score' => $score,
+        //     'created_at' => Carbon::create(1981, 4, 30)
+        // ]);
+        // $score -= 12;
+        // $i = 0;
+        // while ($i++ < $times_to_run)
+        // {
+        //     Score::create([
+        //     'name' => chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90)),
+        //     'score' => $score,
+        //     'created_at' => Carbon::create(rand(1990, 2019), rand(1, 12), rand(1, 31))
+        //     ]); 
+        //     $score -= 10;
+        // };
+
+
+        // bovenstaande kan korter en eenvoudiger:
+
+        foreach (range(1, 101, 10) as $score) {
             Score::create([
-            'name' => chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90)),
-            'score' => $score,
-            'created_at' => Carbon::create(rand(1990, 2019), rand(1, 12), rand(1, 31))
-            ]); 
-            $score -= 10;
-        };
-        $score -= 8;
-        Score::create([
-            'name' => 'ASS',
-            'score' => $score,
-            'created_at' => Carbon::create(1981, 4, 30)
-        ]);
-        $score -= 12;
-        $i = 0;
-        while ($i++ < $times_to_run)
-        {
-            Score::create([
-            'name' => chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90)),
-            'score' => $score,
-            'created_at' => Carbon::create(rand(1990, 2019), rand(1, 12), rand(1, 31))
-            ]); 
-            $score -= 10;
-        };
+                'name' => $score == 101 ? "GOD" : chr(rand(65,90)).chr(rand(65,90)).chr(rand(65,90)),
+                'score' => $score,
+                'created_at' => Carbon::create(rand(1990, 2019), rand(1, 12), rand(1, 31))
+                ]); 
+        }
     }
 }

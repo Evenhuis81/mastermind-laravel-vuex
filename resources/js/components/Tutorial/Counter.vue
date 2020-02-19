@@ -1,3 +1,5 @@
+// Dit component wordt nergens gebruikt dus verwijderen
+
 <template>
     <div class="container">
         {{ count }} (The square root of this number is {{ sqrt }})

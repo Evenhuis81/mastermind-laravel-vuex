@@ -1,3 +1,5 @@
+// Dit component wordt nergens gebruikt dus verwijderen
+
 <template>
   <div>asdf</div>
 </template>

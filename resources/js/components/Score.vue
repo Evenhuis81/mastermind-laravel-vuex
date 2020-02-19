@@ -25,6 +25,7 @@
 </template>
 
 <script>
+// zet deze class in aparte file en include hem zodat je hem op meerdeere plekken kunt hergebruiken. Code wordt daardoor ook leesbaarder.
 class Errors {
     constructor() {
         this.errors = {};

@@ -1,3 +1,5 @@
+// dit bestand kan weg want wordt niet gebruikt
+
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 

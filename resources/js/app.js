@@ -12,7 +12,9 @@ Vue.config.productionTip = false;
 
 import store from "./store";
 
-Vue.component("mastermindTitel", require("./components/Titel.vue").default);
+// registreer components bij voorkeur lokaal ipv globaal zodat ze niet per definitie in de final build ge-inlcude worden
+// voor meer info over component registratie zie: https://vuejs.org/v2/guide/components-registration.html
+Vue.component("mastermindTitel", require("./components/Titel.vue").default);    // gebruik bij voorkeur gelijke component en file names om zoeken naar bronbestanden zo eenvoudig mogelijk te houden
 Vue.component("startReset", require("./components/StartReset.vue").default);
 Vue.component(
     "layoutSummary",
@@ -39,6 +41,7 @@ const app = new Vue({
     }
 });
 
+// ongebruikte commentaren weglaten of in aparte Git branch zetten
 // new Vue({
 //     router,
 //     vuetify,

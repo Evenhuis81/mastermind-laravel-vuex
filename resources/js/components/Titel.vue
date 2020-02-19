@@ -1,3 +1,5 @@
+// dit component heeft geen bestaansrecht, zet titel in hoofdcomponent
+
 <template>
     <div>
         <h1>

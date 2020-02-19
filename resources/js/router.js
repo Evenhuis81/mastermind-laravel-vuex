@@ -1,3 +1,5 @@
+// dit bestand wordt niet gebruikt, verwijder hem daarom, anders is het verwarrend: waar is bijv. het Home component?
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "./components/Home.vue";
@@ -10,6 +12,7 @@ const routes = [
         name: "home",
         component: Home
     }
+    // ongebruikte commentaren verwijderen
     //   {
     // path: '/projects',
     // name: 'projects',

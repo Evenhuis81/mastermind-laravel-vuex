@@ -4,7 +4,7 @@ export default {
     state: {
         colorPalette: ["red", "blue", "white", "green", "black", "yellow"],
         solution: [],
-        playerSelect: [[]],
+        playerSelect: [[]], // "turns" is duidelijkere naam
         playerSet: [[]],
         makeAChoice: false,
         highScores: [],
@@ -77,6 +77,8 @@ export default {
             state.playerSelect.push([]);
             state.playerSet.push([]);
         },
+        // deze messages zijn hard-coded, dus rechtstreeks aan state toekennen,
+        // niet via actions / mutations
         pushMessages(state) {
             state.messages.push(
                 "Click on a color:",
@@ -93,7 +95,12 @@ export default {
             payload.forEach(x => {
                 state.highScores.push(x);
             });
+
+            // bovenstaande code kan eenvoudiger:
+            // state.highScores = payload;
         },
+        // deze ordinals zijn hard-coded, dus rechtstreeks aan state toekennen,
+        // niet via actions / mutations
         pushOrdinals(state) {
             state.ordinals.push("1st", "2nd", "3rd");
             let i = 3;
@@ -145,9 +152,11 @@ export default {
         }
     },
     actions: {
+        // geen synchrone actions toepassen
         setOrdinals({ commit }) {
             commit("pushOrdinals");
         },
+        // geen synchrone actions toepassen
         setMessages(context) {
             context.commit("pushMessages");
         },
@@ -159,6 +168,7 @@ export default {
                 .catch(error => {
                     console.log(error);
                 })
+                // loze then() code verwijderen, evt. promise returnen vanuit deze action zodat component dat deze action aanroept kan wachten op reactie
                 .then(() => {
                     // console.log("always executed");
                 });

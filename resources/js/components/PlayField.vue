@@ -1,6 +1,7 @@
 <template>
     <table>
         <tbody>
+            <!-- kies duidelijken variabelenamen, bijv. playerIndex ipv i1 -->
             <tr v-for="(currentArray, i1) in playerSelect" :key="i1">
                 <td v-show="i1 + 1 === playerSelect.length">
                     <h3>{{ "round " + (i1 + 1) + ":" }}</h3>
@@ -30,6 +31,7 @@
                 </td>
             </tr>
         </tbody>
+        <!-- verkorten naar 1 tfoot element en haal de boodschap uit een computed property van je component -->
         <tfoot v-show="$store.getters.nailedIt">
             <tr>
                 <td colspan="8">
