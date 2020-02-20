@@ -17,7 +17,7 @@ const app = new Vue({
     store: new Vuex.Store(store),
     mounted() {
         this.$store.dispatch("setHighScores");
-        this.$store.commit("pushOrdinals");
+        // this.$store.commit("pushOrdinals");
     },
     render: h => h(App)
 }).$mount("#root");

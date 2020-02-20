@@ -1,3 +1,13 @@
+const filler = () => new Array(7).fill().map((_, index) => `${index + 1}th`);
+//         let i = 3;
+//         let times_to_run = i + 7;
+//         while(i++ < times_to_run) {
+//     state.ordinals.push(i + "th");
+// }
+
+//     return new Array(4).fill().map((_, index) => `${index + 4}th`);
+// };
+
 export default {
     state: {
         colorPalette: ["red", "blue", "white", "green", "black", "yellow"],
@@ -16,7 +26,14 @@ export default {
             "The faster you get it right, the higher your score!",
             "Good luck and have fun!"
         ],
-        ordinals: ["1st", "2nd", "3rd"],
+
+        // ordinals: filler(),
+        ordinals: [
+            "1st",
+            "2nd",
+            "3rd",
+            ...new Array(4).fill().map((_, index) => `${index + 4}th`)
+        ],
         showNewScore: true
     },
     mutations: {
