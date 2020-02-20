@@ -2,10 +2,10 @@
     <div>
         <p>--------------------------------------------------------------</p>
         <span
-            v-for="(color, index) in colorPalette"
-            :key="index"
-            @click="setColor(index)"
-            >[ {{ color }} ] {{ ' ' }}</span
+            v-for="(color, colorCode) in colorPalette"
+            :key="colorCode"
+            @click="setColor(colorCode)"
+            >[ {{ color }} ] {{ " " }}</span
         >
         <p>--------------------------------------------------------------</p>
     </div>
@@ -19,7 +19,7 @@ export default {
         ...mapState(["colorPalette", "playerSelect"])
     },
     methods: {
-        setColor(index) {
+        setColor(colorCode) {
             if (this.$store.getters.nailedIt || this.$store.getters.lostIt) {
                 return;
             }
@@ -30,9 +30,8 @@ export default {
                 return;
             }
             // loze commentaren verwijderen
-            // this.$store.dispatch("pushPlayerSelect", index);
             // geen index gebruiken want foutgevoelig en onnodig, commit pas als hele code ingevoerd is, zonder index
-            this.$store.commit("pushColor", index);
+            this.$store.commit("pushColor", colorCode);
         }
     }
 };

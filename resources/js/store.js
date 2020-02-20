@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 export default {
     state: {
         colorPalette: ["red", "blue", "white", "green", "black", "yellow"],
@@ -8,8 +6,17 @@ export default {
         playerSet: [[]],
         makeAChoice: false,
         highScores: [],
-        messages: [],
-        ordinals: [],
+        messages: [
+            "Click on a color:",
+            "Set 4 colors per round, ",
+            "Duplicates are allowed",
+            "After each round you can check the result",
+            "&#9633 = right color on right place, &#9632 = right color on wrong place",
+            "You have 10 rounds to find the right combination...",
+            "The faster you get it right, the higher your score!",
+            "Good luck and have fun!"
+        ],
+        ordinals: ["1st", "2nd", "3rd"],
         showNewScore: true
     },
     mutations: {
@@ -70,8 +77,8 @@ export default {
             state.showNewScore = false;
             state.highScores = [];
         },
-        pushColor(state, index) {
-            state.playerSelect[state.playerSelect.length - 1].push(index);
+        pushColor(state, colorCode) {
+            state.playerSelect[state.playerSelect.length - 1].push(colorCode);
         },
         nextRound(state) {
             state.playerSelect.push([]);
@@ -79,33 +86,16 @@ export default {
         },
         // deze messages zijn hard-coded, dus rechtstreeks aan state toekennen,
         // niet via actions / mutations
-        pushMessages(state) {
-            state.messages.push(
-                "Click on a color:",
-                "Set 4 colors per round, ",
-                "Duplicates are allowed",
-                "After each round you can check the result",
-                "&#9633 = right color on right place, &#9632 = right color on wrong place",
-                "You have 10 rounds to find the right combination...",
-                "The faster you get it right, the higher your score!",
-                "Good luck and have fun!"
-            );
-        },
         pushHighScores(state, payload) {
-            payload.forEach(x => {
-                state.highScores.push(x);
-            });
-
-            // bovenstaande code kan eenvoudiger:
-            // state.highScores = payload;
+            state.highScores = payload;
+            // bovenstaande code kan eenvoudiger
         },
         // deze ordinals zijn hard-coded, dus rechtstreeks aan state toekennen,
         // niet via actions / mutations
         pushOrdinals(state) {
-            state.ordinals.push("1st", "2nd", "3rd");
             let i = 3;
-            let times_to_run = 7;
-            while (i++ < times_to_run + 4) {
+            let times_to_run = i + 7;
+            while (i++ < times_to_run) {
                 state.ordinals.push(i + "th");
             }
         }
@@ -153,25 +143,17 @@ export default {
     },
     actions: {
         // geen synchrone actions toepassen
-        setOrdinals({ commit }) {
-            commit("pushOrdinals");
-        },
         // geen synchrone actions toepassen
-        setMessages(context) {
-            context.commit("pushMessages");
-        },
         setHighScores({ commit }) {
-            Axios.get("/scores")
+            axios
+                .get("/scores")
                 .then(response => {
                     commit("pushHighScores", response.data);
                 })
                 .catch(error => {
                     console.log(error);
-                })
-                // loze then() code verwijderen, evt. promise returnen vanuit deze action zodat component dat deze action aanroept kan wachten op reactie
-                .then(() => {
-                    // console.log("always executed");
                 });
+            // loze then() code verwijderen, evt. promise returnen vanuit deze action zodat component dat deze action aanroept kan wachten op reactie
         }
     }
 };

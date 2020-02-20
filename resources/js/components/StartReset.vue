@@ -14,20 +14,10 @@
 
 <script>
 // mapState import kan verwijderd worden want wordt niet gebruikt
-import { mapState } from "vuex";
 
 export default {
     // leeg methods blok kan verwijderd worden
-    methods: {
-        // start() {
-        //     this.$store.commit("createSolution");
-        // },
-        // stop() {
-        //     this.$store.commit("stopGame");
-        // }
-    },
     computed: {
-        // ...mapState(["gameStarted"])
         gameStarted() {
             return (
                 this.$store.state.solution.length &&

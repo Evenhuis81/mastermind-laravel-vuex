@@ -1,48 +1,69 @@
 <template>
     <table>
         <tbody>
-            <!-- kies duidelijken variabelenamen, bijv. playerIndex ipv i1 -->
-            <tr v-for="(currentArray, i1) in playerSelect" :key="i1">
-                <td v-show="i1 + 1 === playerSelect.length">
-                    <h3>{{ "round " + (i1 + 1) + ":" }}</h3>
+            <!-- kies duidelijken variabelenamen, bijv. playerIndex ipv playerIndex -->
+            <tr
+                v-for="(currentArray, playerIndex) in playerSelect"
+                :key="playerIndex"
+            >
+                <td v-show="playerIndex + 1 === playerSelect.length">
+                    <h3>{{ "round " + (playerIndex + 1) + ":" }}</h3>
                 </td>
-                <td v-show="i1 + 1 !== playerSelect.length">
-                    {{ "round " + (i1 + 1) + ":" }}
+                <td v-show="playerIndex + 1 !== playerSelect.length">
+                    {{ "round " + (playerIndex + 1) + ":" }}
                 </td>
-                <td v-for="(current, i2) in currentArray" :key="i2 + 1000">
+                <td
+                    v-for="(current, playerIndex2) in currentArray"
+                    :key="playerIndex2 + 1000"
+                >
                     {{ gimmeColor(current) }}
                 </td>
-                <td v-show="submitClearButtons(currentArray, playerSelect, i1)">
+                <td
+                    v-show="
+                        submitClearButtons(
+                            currentArray,
+                            playerSelect,
+                            playerIndex
+                        )
+                    "
+                >
                     <button @click="clearInput">Clear</button>
                 </td>
-                <td v-show="submitClearButtons(currentArray, playerSelect, i1)">
+                <td
+                    v-show="
+                        submitClearButtons(
+                            currentArray,
+                            playerSelect,
+                            playerIndex
+                        )
+                    "
+                >
                     <button @click="submitInput">Submit</button>
                 </td>
                 <td
-                    v-show="makeChoice(currentArray, i1)"
+                    v-show="makeChoice(currentArray, playerIndex)"
                     v-html="'<< CHOOSE ONE'"
                 ></td>
                 <td>
                     <span
-                        v-for="(result, i3) in playerSet[i1]"
-                        :key="i3 + 2000"
+                        v-for="(result, playerIndex3) in playerSet[playerIndex]"
+                        :key="playerIndex3 + 2000"
                         v-html="getHexCode(result)"
                     ></span>
                 </td>
             </tr>
         </tbody>
         <!-- verkorten naar 1 tfoot element en haal de boodschap uit een computed property van je component -->
-        <tfoot v-show="$store.getters.nailedIt">
+        <tfoot v-show="$store.getters.nailedIt || $store.getters.lostIt">
             <tr>
                 <td colspan="8">
-                    <h1>YOU GOT IT!!</h1>
-                </td>
-            </tr>
-        </tfoot>
-        <tfoot v-show="$store.getters.lostIt">
-            <tr>
-                <td colspan="8">
-                    <h1>YOU LOST!!</h1>
+                    <h1>
+                        {{
+                            $store.getters.nailedIt
+                                ? "YOU GOT IT!"
+                                : "YOU LOST!!"
+                        }}
+                    </h1>
                 </td>
             </tr>
         </tfoot>
